@@ -1,7 +1,8 @@
 <?php
-session_start();
+include_once 'data/get_trainers.php';
+$trainers = getTrainers();
+?>
 
-include_once "config.php";
 
 <?php include "header.php";?>
 <div class="video-container position-relative w-100 overflow-hidden">
@@ -25,6 +26,26 @@ include_once "config.php";
     <div class="text-center mt-5">
         <button class="btn btn-primary btn-lg">MEET THE TRAINERS</button>
     </div>
+
+     <!-- Trainer Section -->
+    <div class="container my-5">
+        <h3 class="text-center mb-4">Meet Our Trainers</h3>
+        <div class="row">
+            <?php foreach ($trainers as $trainer): ?>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="<?= htmlspecialchars($trainer['image_url']); ?>" class="card-img-top img-fluid" style="height: 400px; object-fit: cover;" alt="<?= htmlspecialchars($trainer['name']); ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($trainer['name']); ?></h5>
+                        <p class="card-text"><?= htmlspecialchars($trainer['specialties']); ?></p>
+                        <p class="card-text"><?= htmlspecialchars($trainer['bio']); ?></p>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
 </main>
 	
 <?php include "footer.php"; ?>
