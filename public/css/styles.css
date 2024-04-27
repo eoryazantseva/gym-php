@@ -1,0 +1,229 @@
+:root {
+    --branding-color: #594a84;
+    --secondary-color: #160e19;
+    --heading-font-family: Monserrat, sans-serif;
+    --default-font-family: "Poppins", sans-serif;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--heading-font-family) !important;
+    color: var(--secondary-color) !important;
+  }
+  
+  h1 {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  p {
+    font-family: var(--default-font-family);
+  }
+  
+  .alert {
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+  }
+  .center {
+    text-align: center;
+  }
+  .btn-primary {
+    background-color: var(--secondary-color) !important;
+    color: azure !important;
+    padding: 5px 30px 5px 30px;
+  }
+  .nav-icon {
+    color: var(--secondary-color);
+  }
+  #search-bar {
+    font-family: var(--default-font-family);
+  }
+  
+  .nav-link {
+    color: var(--secondary-color);
+    font-family: var(--default-font-family);
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .nav-link:hover {
+    color: var(--branding-color);
+  }
+  .dropdown-item {
+    font-size: 13px;
+    font-family: var(--default-font-family);
+    color: var(--secondary-color);
+    font-weight: 500;
+    color: var(--secondary-color);
+  }
+  .dropdown-item:hover {
+    background-color: var(--branding-color);
+    color: azure;
+  }
+  .form-label {
+    font-size: 20px;
+    font-family: var(--default-font-family);
+    font-weight: 500;
+  }
+  form .required::after {
+    content: " *";
+    color: #c52525;
+  }
+  
+  p.footer-title {
+    font-family: var(--heading-font-family);
+    font-size: px;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+  }
+  .fa-brands {
+    color: var(--secondary-color);
+    margin: 10px;
+  }
+  
+  
+  .contact-details {
+    font-family: var(--default-font-family);
+  }
+  
+  .table {
+    font-size: 16px;
+  }
+  
+  .stock {
+    color: green;
+  }
+  /* 
+  .card {
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+    transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+      0.3s box-shadow,
+      0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+    padding: 14px 80px 18px 36px;
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  } */
+  
+  a,
+  a:hover {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    opacity: 0.8;
+  }
+  
+  .navbar,
+  footer{
+    background-color: #E5E5E5;
+  }
+  @media (max-width: 768px) {
+    #logo {
+      width: 110px;
+    }
+    .navbar-toggler .navbar-toggler-icon {
+      width: 30px !important;
+      height: 30px !important;
+    }
+    .navbar-toggler {
+      padding: 3px 8px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    #logo {
+      width: 90px;
+    }
+    .navbar-toggler .navbar-toggler-icon {
+      width: 25px !important;
+      height: 25px !important;
+    }
+    .navbar-toggler {
+      padding: 2px 6px;
+    }
+    .nav-icon {
+      font-size: 14px;
+    }
+    .footer-title {
+      font-size: px !important;
+    }
+    .contact-details {
+      font-size: 18px !important;
+    }
+  }
+  .modal-backdrop {
+    /* bug fix - no overlay */
+    display: none;
+  }
+  
+
+  #background-video {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    filter: contrast(75%);
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3; 
+  color: white;
+  text-align: center;
+  width: 80%;
+}
+.overlay-text .text-content {
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+}
+.overlay-text .text-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-family: var(--heading-font-family);
+}
+
+.overlay-text .text-content p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-family: var(--default-font-family);
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.warm-background {
+  background-color: #F9EDDA;
+}
