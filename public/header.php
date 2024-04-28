@@ -39,7 +39,7 @@
 
                     <div class="col-lg-3 col-xxl-2">
                         <!-- Logo with link for large screens -->
-                        <a class="navbar-brand d-none d-lg-block" href="/index.php">
+                        <a class="navbar-brand d-none d-lg-block" href="index.php">
                             <img
                                     src="images/logo.png"
                                     alt="logo"
@@ -49,7 +49,7 @@
                         </a>
                         <!-- Logo with link for small screens -->
                         <div class="d-flex justify-content-between w-100 d-lg-none">
-                            <a class="navbar-brand" href="/index.php">
+                            <a class="navbar-brand" href="index.php">
                                 <img
                                         src="images/logo.png"
                                         class="ms-3"
@@ -63,7 +63,7 @@
                                 <div class="list-inline me-2">
                                     <!-- User login icon -->
                                     <div class="list-inline-item">
-                                        <a href="/themobilehour/customer/customer-login.php">
+                                        <a href="login.php">
                                             <i class="fa fa-solid fa-user me-3 nav-icon"></i>
                                         </a>
                                     </div>
@@ -145,7 +145,7 @@
                                 <a
                                         class="position-relative"
 
-                                        href="/themobilehour/customer/customer-login.php"
+                                        href="login.php"
 
                                 >
                                     <i class="fa fa-solid fa-user me-3 nav-icon"></i>
@@ -164,7 +164,7 @@
                 <div class="offcanvas offcanvas-start p-4 p-lg-0" id="navbar-default" aria-modal="true" role="dialog">
                     <div class="d-flex justify-content-between align-items-center mb-2 d-block d-lg-none">
                         <div>
-                            <a class="navbar-brand" href="/themobilehour/index.php">
+                            <a class="navbar-brand" href="index.php">
                                 <img src="images/logo.png" width="100">
                             </a>
                         </div>
@@ -173,10 +173,10 @@
                     <div class="d-none d-md-block">
                         <ul class="navbar-nav">
                             <li class="nav-item ">
-                                <a class="nav-link mx-3" href="/themobilehour/index.php">Home</a>
+                                <a class="nav-link mx-3" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-3" href="/themobilehour/products.php">Timetable</a>
+                                <a class="nav-link mx-3" href="classes.php">Timetable</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-3" href="brands.php">Membership</a>
@@ -195,7 +195,7 @@
                                 <a class="nav-link" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/themobilehour/products.php">Timetable</a>
+                                <a class="nav-link" href="classes.php">Timetable</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="brands.php">Membership</a>
