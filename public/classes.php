@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'data/get_schedule.php';
 $classSchedules = getClassSchedules();
 include "header.php";
@@ -28,7 +29,9 @@ include "header.php";
                                 <th>Time</th>
                                 <th>Level</th>
                                 <th>Spots Available</th>
+                                <?php if (isset($_SESSION['email'])): ?>
                                 <th>Book</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,7 +44,11 @@ include "header.php";
                     <td><?= htmlspecialchars($schedule['start_time']); ?> - <?= htmlspecialchars($schedule['end_time']); ?></td>
                     <td><?= htmlspecialchars($schedule['level']); ?></td>
                     <td><?= htmlspecialchars($schedule['capacity']); ?></td>
-                    <td><a href="book_class.php?schedule_id=<?= $schedule['schedule_id']; ?>" class="btn btn-primary">Book Now</a></td>
+                    <?php if (isset($_SESSION['email'])): ?>
+                    <td>
+                            <a href="book_class.php?schedule_id=<?= $schedule['schedule_id']; ?>" class="btn btn-primary">Book Now</a>
+                    </td>
+                    <?php endif; ?>
                 </tr>
             <?php
                 $last_date = $schedule['formatted_date'];

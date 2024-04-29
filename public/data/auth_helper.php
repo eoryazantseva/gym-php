@@ -1,5 +1,4 @@
 <?php
-
 include_once('config.php');
 
 // Function to register a new user
@@ -34,20 +33,25 @@ function registerUser($firstName, $lastName, $email, $password) {
     return ['success' => false, 'errors' => $errors];
 }
 
-
 // Function to get a user by email and password
 function getUserByEmailAndPassword($email, $password) {
     $conn = getConnection();
-    $email = $conn->real_escape_string($email);
-    $password = $conn->real_escape_string(md5($password));  // Note: Consider using more secure hashing like bcrypt
+    $email = mysqli_real_escape_string($conn, $email);
 
-    $query = "SELECT * FROM users WHERE email = '$email' AND password_hash='$password'";
-    $result = $conn->query($query);
-    $user = null;
+    $query = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
+        // Verify the password
+        if (password_verify($password, $user['password_hash'])) {
+            $conn->close();
+            return $user; // Return the user data if password is correct
+        }
     }
     $conn->close();
-    return $user;
-
+    return null; // Return null if no user is found or password is incorrect
 }

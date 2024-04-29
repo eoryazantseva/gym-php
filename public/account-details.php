@@ -1,8 +1,7 @@
 <?php
-// Starting the session
 session_start();
 
-require_once "data/config.php"; // Ensure the path is correct
+require_once "data/config.php";
 
 // Redirect if not logged in
 if (!isset($_SESSION['email'])) {
@@ -11,7 +10,7 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-$conn = getConnection();  // Initialize connection using your defined function
+$conn = getConnection();
 
 if (isset($_POST['update_details'])) {
     $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);

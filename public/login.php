@@ -8,26 +8,48 @@ if (isset($_SESSION['user_id'])) {
 require_once('data/auth_helper.php');
 
 if (isset($_POST['submit'])) {
-    $errorMsg = "";
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-    if (!empty($email) && !empty($password)) {
-        $user = getUserByEmailAndPassword($email, $password);
-        if ($user) {
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role'];
-            header("Location: dashboard.php");
-            exit();                              
-        } else {
-            $errorMsg = "No user found with these credentials.";
-        } 
-    } else {
-        $errorMsg = "Both email and password are required.";
-    }
+  if (!empty($email) && !empty($password)) {
+      $user = getUserByEmailAndPassword($email, $password);
+      if ($user) {
+          // Login successful
+          // Redirect or start session
+      } else {
+          // Debugging output
+          echo "Login failed. Check email and password.";
+          var_dump($email);
+          var_dump($password);
+          // Be careful with displaying sensitive information in a production environment.
+      }
+  } else {
+      echo "Email and password must not be empty.";
+  }
 }
+
+
+// if (isset($_POST['submit'])) {
+//     $errorMsg = "";
+//     $email = $_POST['email'];
+//     $password = $_POST['password'];
+
+//     if (!empty($email) && !empty($password)) {
+//         $user = getUserByEmailAndPassword($email, $password);
+//         if ($user) {
+//             $_SESSION['user_id'] = $user['user_id'];
+//             $_SESSION['username'] = $user['username'];
+//             $_SESSION['email'] = $user['email'];
+//             $_SESSION['role'] = $user['role'];
+//             header("Location: dashboard.php");
+//             exit();                              
+//         } else {
+//             $errorMsg = "No user found with these credentials.";
+//         } 
+//     } else {
+//         $errorMsg = "Both email and password are required.";
+//     }
+// }
 ?>
 
 <?php require "header.php"; ?>
