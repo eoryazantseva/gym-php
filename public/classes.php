@@ -8,6 +8,12 @@ include "header.php";
 <main class="py-5">
     <div class="container">
         <h2 class="font-bold">Our Schedule</h2>
+        <?php
+        if (isset($_SESSION['message'])) {
+            echo '<div class="alert alert-info">' . $_SESSION['message'] . '</div>';
+            unset($_SESSION['message']);  // Clear the message after displaying it
+        }
+        ?>
         <div class="table-responsive">
             <?php 
             $last_date = null;

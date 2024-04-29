@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "u124274064_eoryazantseva";
-$password = "Osmandina123";
-$dbname = "u124274064_tafegym";
+$servername = '127.0.0.1';
+$username = 'u124274064_eoryazantseva';
+$password = 'Osmandina123';
+$dbname = 'u124274064_tafegym';
 
 // Function to create and check connection
 function getConnection() {
