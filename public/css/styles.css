@@ -38,6 +38,13 @@
     color: azure !important;
     padding: 5px 30px 5px 30px;
   }
+
+  .btn-secondary {
+    background-color: azure !important;
+    color: var(--secondary-color) !important;
+    padding: 5px 30px 5px 30px;
+    border: 1px solid var(--secondary-color);
+  }
   .nav-icon {
     color: var(--secondary-color);
   }
@@ -226,4 +233,31 @@
 
 .warm-background {
   background-color: #F9EDDA;
+}
+
+.post {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+.post:last-child {
+  border-bottom: none;
+}
+.post img {
+  width: 100%; 
+  height: 600px; 
+  object-fit: cover; 
+}
+.post h2 {
+  color: #007bff;
+}
+.post small {
+  color: #6c757d; 
+}
+.post a {
+  color: #dc3545; 
+}
+.centered-item {
+    display: inline-block; /* or use 'block' if appropriate */
+    width: 100%; /* for 'block' */
 }
