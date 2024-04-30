@@ -11,9 +11,11 @@ function getPosts($conn) {
     return $posts;
 }
 
-
 function getPost($conn, $post_id) {
-    $sql = "SELECT post_id, title, content, created_at FROM posts WHERE post_id = ?";
+    $sql = "SELECT p.post_id, p.title, p.content, p.created_at, p.post_image_url, CONCAT(u.first_name, ' ', u.last_name) AS author_name
+            FROM posts p
+            JOIN users u ON p.user_id = u.user_id
+            WHERE p.post_id = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, 'i', $post_id);
     mysqli_stmt_execute($stmt);

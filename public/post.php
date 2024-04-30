@@ -1,56 +1,67 @@
 <?php
 session_start();
 include_once 'data/blog_helper.php';
+
 $post_id = $_GET['post_id'] ?? 0;
 $conn = getConnection();
 $post = getPost($conn, $post_id);
+
 if (!$post) {
     echo "Post not found.";
     exit;
 }
-$comments = getComments($conn, $post_id);
-require "header.php";
 
-$post_id = $_GET['post_id'] ?? 0; // make sure to validate this
-$post = getPost(getConnection(), $post_id);
-$comments = getComments(getConnection(), $post_id);
+$comments = getComments($conn, $post_id);
 
 if (isset($_POST['submit_comment'])) {
-    if (isset($_SESSION['user_id'])) {  // Check if user is logged in
-        $comment = mysqli_real_escape_string(getConnection(), $_POST['comment']);
+    if (isset($_SESSION['user_id'])) {
+        $comment = mysqli_real_escape_string($conn, $_POST['comment']);
         $user_id = $_SESSION['user_id'];
-        // Insert comment
         $sql = "INSERT INTO comments (post_id, user_id, comment) VALUES ('$post_id', '$user_id', '$comment')";
-        mysqli_query(getConnection(), $sql);
-        header("Location: post.php?post_id=$post_id");  // Refresh to show new comment
+        mysqli_query($conn, $sql);
+        header("Location: post.php?post_id=$post_id");
+        exit();
     } else {
         $error = "You must be logged in to comment.";
     }
 }
+
+require "header.php";
 ?>
 
-<div class="post">
-    <h2><?= htmlspecialchars($post['title']) ?></h2>
-    <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
-    <small>Posted on: <?= $post['created_at'] ?></small>
-</div>
+<main class="container mt-5">
+    <article class="post">
+        <h2 class="display-4"><?= htmlspecialchars($post['title']) ?></h2>
+        <p class="text-muted">Posted on <?= date('F j, Y', strtotime($post['created_at'])) ?> by <?= htmlspecialchars($post['author_name']) ?></p>
+        <img src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" class="img-fluid rounded">
+        <p class="mt-4"><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+    </article>
 
-<!-- Comments section -->
-<h3>Comments</h3>
-<?php foreach ($comments as $comment): ?>
-    <div class="comment">
-        <p><?= htmlspecialchars($comment['comment']) ?></p>
-        <small>Commented by: <?= $comment['username'] ?> at <?= $comment['created_at'] ?></small>
-    </div>
-<?php endforeach; ?>
+    <section class="comments mt-5">
+        <h3>Comments</h3>
+        <?php if (!empty($comments)): ?>
+            <?php foreach ($comments as $comment): ?>
+                <div class="comment mb-3">
+                    <p><?= htmlspecialchars($comment['comment']) ?></p>
+                    <small class="text-muted">Commented by <?= htmlspecialchars($comment['username']) ?> on <?= date('F j, Y, g:i a', strtotime($comment['created_at'])) ?></small>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No comments yet.</p>
+        <?php endif; ?>
 
-<?php if (isset($_SESSION['user_id'])): ?>
-    <form action="" method="post">
-        <textarea name="comment" required></textarea>
-        <button type="submit" name="submit_comment">Add Comment</button>
-    </form>
-<?php else: ?>
-    <p>You must be logged in to add comments.</p>
-<?php endif; ?>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <form action="post.php?post_id=<?= htmlspecialchars($post_id) ?>" method="post" class="mt-4">
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Your Comment</label>
+                    <textarea name="comment" id="comment" rows="3" class="form-control" required></textarea>
+                </div>
+                <button type="submit" name="submit_comment" class="btn btn-primary mb-5">Add Comment</button>
+            </form>
+        <?php else: ?>
+            <p>You must be logged in to add comments.</p>
+        <?php endif; ?>
+    </section>
+</main>
 
 <?php include "footer.php"; ?>
