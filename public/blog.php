@@ -13,7 +13,7 @@ include "header.php";
             <div class="text-center mb-2">
                 <small>POSTED ON <?= date('F j, Y', strtotime($post['created_at'])) ?> BY <?= htmlspecialchars($post['author_name']) ?></small>
             </div>
-            <img class="rounded" src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
+            <img class="img-fluid" src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" max-width: 100%; >
 
             <?php 
             $lines = explode("\n", htmlspecialchars($post['content']));  // Split content into lines
