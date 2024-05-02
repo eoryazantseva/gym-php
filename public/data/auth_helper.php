@@ -1,5 +1,5 @@
 <?php
-include_once('config.php');
+include_once('../config.php');
 
 // Function to register a new user
 function registerUser($firstName, $lastName, $email, $password) {

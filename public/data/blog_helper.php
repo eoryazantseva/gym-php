@@ -1,5 +1,5 @@
 <?php
-include_once "config.php";
+include_once "../config.php";
 
 function getPosts($conn) {
     $sql = "SELECT p.post_id, p.title, p.content, p.created_at, p.post_image_url, CONCAT(u.first_name, ' ', u.last_name) AS author_name

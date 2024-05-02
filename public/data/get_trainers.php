@@ -1,5 +1,5 @@
 <?php
-include_once "config.php"; // Includes the configuration and the getConnection function
+include_once "../config.php"; // Includes the configuration and the getConnection function
 
 function getTrainers() {
     $conn = getConnection(); // Use the function from config.php to establish a connection

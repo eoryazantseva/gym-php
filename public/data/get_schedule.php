@@ -1,5 +1,5 @@
 <?php
-include_once "config.php";
+include_once "../config.php";
 
 function getClassSchedules() {
     $conn = getConnection(); // Establish a connection using the function from config.php
