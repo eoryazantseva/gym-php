@@ -50,8 +50,8 @@ require "partials/header.php";
                         </a>
                     </li>
                     <li>
-                        <a href="upload_members.php" class="nav-link link-dark">
-                            <i class="fa-solid fa-upload"></i> Upload Members XML
+                        <a href="upload_schedule.php" class="nav-link link-dark">
+                            <i class="fa-solid fa-upload"></i> Upload Schedule XML
                         </a>
                     </li>
                 <?php else: ?>

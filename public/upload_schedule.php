@@ -23,15 +23,26 @@ require "partials/header.php";
     <div class="row">
         <div class="col-md-8 col-sm-12 order-md-last">
             <?php include('partials/message.php'); ?>
+            <script>
+                function updateFileName() {
+                    var fileInput = document.getElementById('file');
+                    var fileNameDisplay = document.getElementById('file-name-display');
+                    if (fileInput.files.length > 0) {
+                        fileNameDisplay.innerText = 'Selected file: ' + fileInput.files[0].name;
+                    } else {
+                        fileNameDisplay.innerText = 'No file selected';
+                    }
+                }
+            </script>
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Upload XML File for New Members</h5>
+                    <h5 class="mb-0">Upload XML File for New Schedule</h5>
                 </div>
                 <div class="card-body">
-                    <form action="data/import_members.php" method="post" enctype="multipart/form-data" class="form-inline">
+                    <form action="data/import_schedule.php" method="post" enctype="multipart/form-data" class="form-inline">
                         <div class="form-group mb-2">
                             <label for="file" class="mr-2">Choose file:</label>
-                            <input type="file" name="file" id="file" class="form-control-file">
+                            <input type="file" name="file" id="file" class="form-control-file" onchange="updateFileName()">
                         </div>
                         <button type="submit" value="Upload" name="submit" class="btn btn-primary mb-2 ml-2">Upload</button>
                     </form>
@@ -56,8 +67,8 @@ require "partials/header.php";
                         </a>
                     </li>
                     <li>
-                        <a href="upload_members.php" class="nav-link active">
-                            <i class="fa-solid fa-upload"></i> Upload Members XML
+                        <a href="upload_schedule.php" class="nav-link active">
+                            <i class="fa-solid fa-upload"></i> Upload Schedule XML
                         </a>
                     </li>
                 <?php else: ?>

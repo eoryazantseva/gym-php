@@ -1,71 +1,23 @@
 <?php
-session_start();
-include_once 'data/get_schedule.php';
-$classSchedules = getClassSchedules();
-include "partials/header.php";
+include_once 'data/get_classes.php';
+$classes = getClasses();
 ?>
 
-<main class="py-5">
-    <div class="container">
-        <h2 class="font-bold">Our Schedule</h2>
-        <?php
-        if (isset($_SESSION['message'])) {
-            echo '<div class="alert alert-info">' . $_SESSION['message'] . '</div>';
-            unset($_SESSION['message']);  // Clear the message after displaying it
-        }
-        ?>
-        <div class="table-responsive">
-            <?php 
-            $last_date = null;
-            foreach ($classSchedules as $schedule):
-                if ($last_date !== $schedule['formatted_date']): 
-                    if ($last_date !== null):
-            ?>
-                        </tbody>
-                    </table>
-            <?php 
-                    endif;
-            ?>
-                    <h4 class="mt-5"><?= htmlspecialchars($schedule['formatted_date']); ?></h4>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr class="text-center">
-                                <th>Class Name</th>
-                                <th>Trainer</th>
-                                <th>Time</th>
-                                <th>Level</th>
-                                <th>Spots Available</th>
-                                <?php if (isset($_SESSION['email'])): ?>
-                                <th>Book</th>
-                                <?php endif; ?>
-                            </tr>
-                        </thead>
-                        <tbody>
-            <?php
-                endif;
-            ?>
-                <tr class="text-center">
-                    <td><?= htmlspecialchars($schedule['class_name']); ?></td>
-                    <td><?= htmlspecialchars($schedule['trainer_name']); ?></td>
-                    <td><?= htmlspecialchars($schedule['start_time']); ?> - <?= htmlspecialchars($schedule['end_time']); ?></td>
-                    <td><?= htmlspecialchars($schedule['level']); ?></td>
-                    <td><?= htmlspecialchars($schedule['capacity']); ?></td>
-                    <?php if (isset($_SESSION['email'])): ?>
-                    <td>
-                            <a href="book_class.php?schedule_id=<?= $schedule['schedule_id']; ?>" class="btn btn-primary">Book Now</a>
-                    </td>
-                    <?php endif; ?>
-                </tr>
-            <?php
-                $last_date = $schedule['formatted_date'];
-            endforeach;
-            if ($last_date !== null):
-            ?>
-                        </tbody>
-                    </table>
-            <?php endif; ?>
+<?php include "partials/header.php";?>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Available Classes</h1>
+    <?php foreach ($classes as $class): ?>
+        <div class="card mt-4 mb-4">
+            <div class="card-header">
+                <h5 class=" font-bold"><?= htmlspecialchars($class['name']) ?></h5>
+            </div>
+            <div class="card-body">
+                <p><?= nl2br(htmlspecialchars($class['description'])) ?></p>
+            </div>
         </div>
-    </div>
-</main>
+    <?php endforeach; ?>
+</div>
+
 
 <?php include "partials/footer.php"; ?>

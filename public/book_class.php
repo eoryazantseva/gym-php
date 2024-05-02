@@ -42,6 +42,6 @@ if (isset($_GET['schedule_id'])) {
 }
 
 // Redirect back to the classes schedule page
-header('Location: classes.php');
+header('Location: schedule.php');
 exit();
 ?>
