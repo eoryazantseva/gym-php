@@ -13,12 +13,12 @@ if (!isset($_SESSION['email'])) {
 $conn = getConnection();
 
 if (isset($_POST['update_details'])) {
-    $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-    $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $phone = mysqli_real_escape_string($conn, $_POST['cust_phone']);
     $email_changed = mysqli_real_escape_string($conn, $_POST['cust_email']);
 
-    $query = "UPDATE users SET first_name='$firstName', last_name='$lastName', phone='$phone', email='$email_changed' WHERE email='{$_SESSION['email']}'";
+    $query = "UPDATE users SET first_name='$first_name', last_name='$last_name', phone='$phone', email='$email_changed' WHERE email='{$_SESSION['email']}'";
     if (mysqli_query($conn, $query)) {
         $_SESSION['message'] = "Personal Details Updated";
         header("Location: dashboard.php");
@@ -36,7 +36,7 @@ require "partials/header.php";
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8 col-sm-12 order-md-last">
-            <?php include('message.php'); ?>
+            <?php include('partials/message.php'); ?>
 
             <?php
             $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
@@ -46,12 +46,12 @@ require "partials/header.php";
 
             <form class="my-4 mb-sm-3" action="account-details.php" method="post">
                 <div class="form-group mb-3">
-                    <label for="firstName" class="form-label">First Name:</label>
-                    <input type="text" class="form-control" name="firstName" value="<?= htmlspecialchars($user['first_name']); ?>">
+                    <label for="first_name" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" name="first_name" value="<?= htmlspecialchars($user['first_name']); ?>">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="lastName" class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" name="lastName" value="<?= htmlspecialchars($user['last_name']); ?>">
+                    <label for="last_name" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" name="last_name" value="<?= htmlspecialchars($user['last_name']); ?>">
                 </div>
                 <div class="form-group mb-3">
                     <label for="cust_phone" class="form-label">Phone:</label>

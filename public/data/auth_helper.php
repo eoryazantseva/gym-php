@@ -3,23 +3,23 @@
 include_once('../config.php');
 
 // Function to register a new user
-function registerUser($firstName, $lastName, $email, $password) {
+function registerUser($first_name, $last_name, $email, $password) {
     $conn = getConnection();
     $errors = [];
 
-    $firstName = mysqli_real_escape_string($conn, $firstName);
-    $lastName = mysqli_real_escape_string($conn, $lastName);
+    $first_name = mysqli_real_escape_string($conn, $first_name);
+    $last_name = mysqli_real_escape_string($conn, $last_name);
     $email = mysqli_real_escape_string($conn, $email);
     $password = mysqli_real_escape_string($conn, $password);
 
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+    if (empty($first_name) || empty($last_name) || empty($email) || empty($password)) {
         array_push($errors, "All fields are required.");
     }
 
     if (count($errors) == 0) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $query = "INSERT INTO users (password_hash, email, first_name, last_name, role)
-                  VALUES('$hashed_password', '$email', '$firstName', '$lastName', 'customer')";
+                  VALUES('$hashed_password', '$email', '$first_name', '$last_name', 'customer')";
 
         if (mysqli_query($conn, $query)) {
             $user_id = mysqli_insert_id($conn);  // Gets the last inserted user ID
