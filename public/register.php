@@ -1,4 +1,4 @@
-<?php include "header.php"; ?>
+<?php include "partials/header.php"; ?>
 <form action="register_user.php" method="post">
     <div class="form-group">
         <label for="username">Username:</label>
@@ -14,4 +14,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
-<?php include "footer.php"; ?>
+<?php include "partials/footer.php"; ?>

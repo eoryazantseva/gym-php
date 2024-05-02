@@ -26,7 +26,7 @@ if (isset($_POST['submit_comment'])) {
     }
 }
 
-require "header.php";
+require "partials/header.php";
 ?>
 
 <main class="container mt-5">
@@ -64,4 +64,4 @@ require "header.php";
     </section>
 </main>
 
-<?php include "footer.php"; ?>
+<?php include "partials/footer.php"; ?>

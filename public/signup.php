@@ -39,7 +39,7 @@ if (isset($_POST['reg_user'])) {
     }
 }
 
-require "header.php";
+require "partials/header.php";
 ?>
 
 <div class="container my-5 pb-5">
@@ -78,4 +78,4 @@ require "header.php";
     </form>
 </div>
 
-<?php require "footer.php"; ?>
+<?php require "partials/footer.php"; ?>

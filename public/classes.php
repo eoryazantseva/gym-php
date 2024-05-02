@@ -2,7 +2,7 @@
 session_start();
 include_once 'data/get_schedule.php';
 $classSchedules = getClassSchedules();
-include "header.php";
+include "partials/header.php";
 ?>
 
 <main class="py-5">
@@ -68,4 +68,4 @@ include "header.php";
     </div>
 </main>
 
-<?php include "footer.php"; ?>
+<?php include "partials/footer.php"; ?>

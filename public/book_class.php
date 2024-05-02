@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'data/config.php';  // Ensure this path is correct
+include_once '../config.php'; 
 
 if (!isset($_SESSION['email'])) {
     // If the user is not logged in, redirect to the login page
@@ -12,7 +12,7 @@ if (!isset($_SESSION['email'])) {
 if (isset($_GET['schedule_id'])) {
     $conn = getConnection();
     $schedule_id = mysqli_real_escape_string($conn, $_GET['schedule_id']);
-    $user_id = $_SESSION['user_id'];  // Assuming you store user_id in session on login
+    $user_id = $_SESSION['user_id'];
 
     // Check if there are spots available for the class
     $query = "SELECT capacity FROM class_schedule WHERE schedule_id = '$schedule_id'";

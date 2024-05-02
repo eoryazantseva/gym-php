@@ -4,7 +4,8 @@ $trainers = getTrainers();
 ?>
 
 
-<?php include "header.php";?>
+<?php include "partials/header.php";?>
+
 <div class="video-container position-relative w-100 overflow-hidden">
     <video autoplay muted loop id="background-video" class="w-100">
         <source src="images/video2.mp4" type="video/mp4">
@@ -45,4 +46,4 @@ $trainers = getTrainers();
 
 </main>
 	
-<?php include "footer.php"; ?>
+<?php include "partials/footer.php"; ?>

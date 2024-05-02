@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "data/config.php";
+require_once "../config.php";
 
 // Redirect if not logged in
 if (!isset($_SESSION['email'])) {
@@ -30,7 +30,7 @@ if (isset($_POST['update_details'])) {
     }
 }
 
-require "header.php";
+require "partials/header.php";
 ?>
 
 <div class="container mt-5">
@@ -102,4 +102,4 @@ require "header.php";
     </div>
 </div>
 <!-- FOOTER STARTS -->
-<?php require "footer.php"; ?>
+<?php require "partials/footer.php"; ?>

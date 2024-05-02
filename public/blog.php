@@ -2,7 +2,7 @@
 session_start();
 include_once 'data/blog_helper.php';
 $posts = getPosts(getConnection());
-include "header.php";
+include "partials/header.php";
 ?>
 
 <main class="container mt-5">
@@ -13,7 +13,7 @@ include "header.php";
             <div class="text-center mb-2">
                 <small>POSTED ON <?= date('F j, Y', strtotime($post['created_at'])) ?> BY <?= htmlspecialchars($post['author_name']) ?></small>
             </div>
-            <img class="img-fluid" src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" max-width: 100%; >
+            <img class="img-fluid" src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" max-width: 80%; >
 
             <?php 
             $lines = explode("\n", htmlspecialchars($post['content']));  // Split content into lines
@@ -28,4 +28,4 @@ include "header.php";
     <?php endforeach; ?>
 </main>
 
-<?php include "footer.php"; ?>
+<?php include "partials/footer.php"; ?>

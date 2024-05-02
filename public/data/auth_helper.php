@@ -1,4 +1,5 @@
 <?php
+
 include_once('../config.php');
 
 // Function to register a new user
@@ -9,17 +10,17 @@ function registerUser($firstName, $lastName, $email, $password) {
     $firstName = mysqli_real_escape_string($conn, $firstName);
     $lastName = mysqli_real_escape_string($conn, $lastName);
     $email = mysqli_real_escape_string($conn, $email);
-    $password = mysqli_real_escape_string($conn, $password); // Password is treated as plain text
+    $password = mysqli_real_escape_string($conn, $password);
 
     if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
         array_push($errors, "All fields are required.");
     }
 
     if (count($errors) == 0) {
-        // Directly use the plain password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $query = "INSERT INTO users (password_hash, email, first_name, last_name, role)
-                  VALUES('$password', '$email', '$firstName', '$lastName', 'customer')";
-        
+                  VALUES('$hashed_password', '$email', '$firstName', '$lastName', 'customer')";
+
         if (mysqli_query($conn, $query)) {
             $user_id = mysqli_insert_id($conn);  // Gets the last inserted user ID
             $conn->close();
@@ -33,16 +34,25 @@ function registerUser($firstName, $lastName, $email, $password) {
     return ['success' => false, 'errors' => $errors];
 }
 
+
 // Function to get a user by email and password
 function getUserByEmailAndPassword($email, $password) {
     $conn = getConnection();
-    $sql = "SELECT * FROM users WHERE email = ? AND password_hash = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ss", $email, $password);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $user = mysqli_fetch_assoc($result);
-    mysqli_stmt_close($stmt);
-    mysqli_close($conn);
-    return $user ? $user : null;
+    $email = $conn->real_escape_string($email);
+
+    $query = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($query);
+    $user = null;
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password_hash'])) {
+            // Correct password
+            return $user;
+        } else {
+            // Wrong password
+            $user = null;
+        }
+    }
+    $conn->close();
+    return $user;
 }

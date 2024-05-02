@@ -18,7 +18,7 @@ if (isset($_GET['logout'])) {
 }
 ?>
 
-<?php require "header.php"; ?>
+<?php require "partials/header.php"; ?>
 
 <!-- MAIN SECTION STARTS -->
 <div class="container mt-5">
@@ -28,7 +28,7 @@ if (isset($_GET['logout'])) {
 
             <?php if (isset($_SESSION['email'])) : ?>
                 <p class="d-none d-md-block">
-                    Welcome <strong><?php echo $_SESSION['firstName']; ?></strong>!
+                    Welcome <strong><?php echo $_SESSION['first_name']; ?></strong>!
                 </p>
                 <p class="d-none d-md-block">
                     <a style="color: red" href="?logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Click here to Logout</a>
@@ -66,4 +66,4 @@ if (isset($_GET['logout'])) {
     </div>
 </div>
 <!-- FOOTER STARTS -->
-<?php require "footer.php"; ?>
+<?php require "partials/footer.php"; ?>
