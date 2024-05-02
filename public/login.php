@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['user_id'])) {
     // Redirect to the dashboard based on role
-    header("Location: " . ($_SESSION['role'] === 'admin' ? 'admin-dashboard.php' : 'dashboard.php'));
+    header("Location: dashboard.php");
     exit();
 }
 
@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['role'] = $user['role'];
 
             // Redirect based on role
-            header("Location: " . ($user['role'] === 'admin' ? 'admin-dashboard.php' : 'dashboard.php'));
+            header("Location: dashboard.php");
             exit();                              
         } else {
             $errorMsg = "No user found with these credentials or password is incorrect.";
