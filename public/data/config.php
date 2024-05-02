@@ -1,7 +1,7 @@
 <?php
-$servername = '127.0.0.1';
+$servername = 'localhost';
 $username = 'u124274064_eoryazantseva';
-$password = 'Osmandina123';
+$password = 'Kukushe4ki';
 $dbname = 'u124274064_tafegym';
 
 // Function to create and check connection

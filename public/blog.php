@@ -22,7 +22,7 @@ include "header.php";
 
             <p class="mb-3 mt-3"><?= nl2br($preview) ?>...</p>
             <div class="text-center">
-                <a href="post.php?post_id=<?= $post['post_id'] ?>" class="btn btn-secondary mt-2">CONTINUE READING</a>
+                <a href="post.php?post_id=<?= $post['post_id'] ?>" class="btn btn-secondary mt-2">CONTINUE READING →</a>
             </div>
         </div>
     <?php endforeach; ?>

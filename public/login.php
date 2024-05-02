@@ -6,6 +6,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 require_once('data/auth_helper.php');
+$errorMsg = "";  // Initialize the error message variable
 
 if (isset($_POST['submit'])) {
   $email = $_POST['email'];
@@ -14,42 +15,20 @@ if (isset($_POST['submit'])) {
   if (!empty($email) && !empty($password)) {
       $user = getUserByEmailAndPassword($email, $password);
       if ($user) {
-          // Login successful
-          // Redirect or start session
+          // Set session variables
+          $_SESSION['user_id'] = $user['user_id'];
+          $_SESSION['email'] = $user['email'];
+          $_SESSION['role'] = $user['role'];
+          // Redirect to dashboard
+          header("Location: dashboard.php");
+          exit();
       } else {
-          // Debugging output
-          echo "Login failed. Check email and password.";
-          var_dump($email);
-          var_dump($password);
-          // Be careful with displaying sensitive information in a production environment.
+          $errorMsg = "Login failed. Check email and password.";
       }
   } else {
-      echo "Email and password must not be empty.";
+      $errorMsg = "Email and password must not be empty.";
   }
 }
-
-
-// if (isset($_POST['submit'])) {
-//     $errorMsg = "";
-//     $email = $_POST['email'];
-//     $password = $_POST['password'];
-
-//     if (!empty($email) && !empty($password)) {
-//         $user = getUserByEmailAndPassword($email, $password);
-//         if ($user) {
-//             $_SESSION['user_id'] = $user['user_id'];
-//             $_SESSION['username'] = $user['username'];
-//             $_SESSION['email'] = $user['email'];
-//             $_SESSION['role'] = $user['role'];
-//             header("Location: dashboard.php");
-//             exit();                              
-//         } else {
-//             $errorMsg = "No user found with these credentials.";
-//         } 
-//     } else {
-//         $errorMsg = "Both email and password are required.";
-//     }
-// }
 ?>
 
 <?php require "header.php"; ?>
@@ -63,7 +42,7 @@ if (isset($_POST['submit'])) {
   
       <?php if (!empty($errorMsg)) { ?>
           <div class="alert alert-danger">
-            <?php echo $errorMsg; ?>
+            <?php echo htmlspecialchars($errorMsg); ?>
           </div>
       <?php } ?>
 

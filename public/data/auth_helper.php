@@ -9,16 +9,16 @@ function registerUser($firstName, $lastName, $email, $password) {
     $firstName = mysqli_real_escape_string($conn, $firstName);
     $lastName = mysqli_real_escape_string($conn, $lastName);
     $email = mysqli_real_escape_string($conn, $email);
-    $password = mysqli_real_escape_string($conn, $password);
+    $password = mysqli_real_escape_string($conn, $password); // Password is treated as plain text
 
     if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
         array_push($errors, "All fields are required.");
     }
 
     if (count($errors) == 0) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Directly use the plain password
         $query = "INSERT INTO users (password_hash, email, first_name, last_name, role)
-                  VALUES('$hashed_password', '$email', '$firstName', '$lastName', 'customer')";
+                  VALUES('$password', '$email', '$firstName', '$lastName', 'customer')";
         
         if (mysqli_query($conn, $query)) {
             $user_id = mysqli_insert_id($conn);  // Gets the last inserted user ID
@@ -36,22 +36,13 @@ function registerUser($firstName, $lastName, $email, $password) {
 // Function to get a user by email and password
 function getUserByEmailAndPassword($email, $password) {
     $conn = getConnection();
-    $email = mysqli_real_escape_string($conn, $email);
-
-    $query = "SELECT * FROM users WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
-        // Verify the password
-        if (password_verify($password, $user['password_hash'])) {
-            $conn->close();
-            return $user; // Return the user data if password is correct
-        }
-    }
-    $conn->close();
-    return null; // Return null if no user is found or password is incorrect
+    $sql = "SELECT * FROM users WHERE email = ? AND password_hash = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ss", $email, $password);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+    return $user ? $user : null;
 }
