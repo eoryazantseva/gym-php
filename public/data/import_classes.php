@@ -1,26 +1,33 @@
 <?php
-include_once "../config.php";
+session_start();
+include_once "../../config.php"; // Adjust the path as needed to ensure it's correct
 $conn = getConnection();
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
+    $file = $_FILES['file'];
 
-$xml = simplexml_load_file('classes.xml');
-foreach ($xml->Class as $class) {
-    $name = $class->Name;
-    $description = $class->Description;
-    $trainerId = $class->TrainerId;
-    $weekday = $class->Schedule->Weekday;
-    $startTime = $class->Schedule->StartTime;
-    $durationMinutes = $class->Schedule->DurationMinutes;
-    $level = $class->Schedule->Level;
+    // Check if there was no error uploading the file
+    if ($file['error'] == UPLOAD_ERR_OK) {
+        $tempName = $file['tmp_name'];
+        $xml = simplexml_load_file($tempName);
 
-    // SQL to insert into classes table
-    $sql = "INSERT INTO classes (name, description) VALUES ('$name', '$description')";
-    mysqli_query($conn, $sql);
-    $classId = mysqli_insert_id($conn);
+        $conn = getConnection();
+        foreach ($xml->Class as $class) {
+            $name = $class->Name;
+            $description = $class->Description;
 
-    // SQL to insert into class_schedule table
-    $sql = "INSERT INTO class_schedule (class_id, trainer_id, weekday, start_time, duration_minutes, level) 
-            VALUES ('$classId', '$trainerId', '$weekday', '$startTime', '$durationMinutes', '$level')";
-    mysqli_query($conn, $sql);
+            $sql = "INSERT INTO classes (name, description) VALUES (?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ss", $name, $description);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        }
+        mysqli_close($conn);
+        $_SESSION['message'] = "Classes imported successfully.";
+        header("Location: ../dashboard.php");
+    } else {
+        $_SESSION['message'] = "Error uploading file.";
+        header("Location: upload_classes.php");
+    }
+    exit();
 }
-mysqli_close($conn);
 ?>
