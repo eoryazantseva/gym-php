@@ -35,9 +35,7 @@ include "partials/header.php";
                                 <th>Time</th>
                                 <th>Level</th>
                                 <th>Spots Available</th>
-                                <?php if (isset($_SESSION['email'])): ?>
-                                <th>Book</th>
-                                <?php endif; ?>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,11 +48,11 @@ include "partials/header.php";
                     <td><?= htmlspecialchars($schedule['start_time']); ?> - <?= htmlspecialchars($schedule['end_time']); ?></td>
                     <td><?= htmlspecialchars($schedule['level']); ?></td>
                     <td><?= htmlspecialchars($schedule['capacity']); ?></td>
-                    <?php if (isset($_SESSION['email'])): ?>
                     <td>
-                            <a href="book_class.php?schedule_id=<?= $schedule['schedule_id']; ?>" class="btn btn-primary">Book Now</a>
+                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <a href="data/delete_class.php?schedule_id=<?= $schedule['schedule_id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this class?');">Delete</a>
+                        <?php endif; ?>
                     </td>
-                    <?php endif; ?>
                 </tr>
             <?php
                 $last_date = $schedule['formatted_date'];
