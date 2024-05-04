@@ -67,32 +67,21 @@
                                             <i class="fa fa-solid fa-user me-3 nav-icon"></i>
                                         </a>
                                     </div>
-                                   
-                                    <!-- <?php
-                                    if(!empty($_SESSION["shopping_cart"])) {
-                                    $cart_count = count(array_keys($_SESSION["shopping_cart"]));
-                                    ?>
-                                   
-                                    <?php echo $cart_count; ?></span></a>
-                                    </div>
-                                    <?php
-                                    }
-                                    ?> -->
-
+                                <?php if(isset($_SESSION['email'])): ?>
+                                    <!-- Show "My Account" when the user is logged in -->
                                     <div class="list-inline-item">
-                                        <a
-                                                class="text-muted"
-                                                data-bs-toggle="offcanvas"
-                                                data-bs-target="#offCanvasRight"
-                                                href="cart.php"
-                                                role="button"
-                                                aria-controls="offCanvasRight"
-                                        >
-                                            <i
-                                                    class="fa fa-solid fa-cart-shopping me-2 nav-icon"
-                                            ></i>
+                                        <a href="account-details.php" class="text-dark text-decoration-none">
+                                            <span>My Account</span>
                                         </a>
                                     </div>
+                                <?php else: ?>
+                                    <!-- Show "Sign In" when the user is not authorized -->
+                                    <div class="list-inline-item">
+                                        <a href="login.php" class="text-dark text-decoration-none">
+                                            <span>Sign In</span>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
                                     <button
                                             class="navbar-toggler collapsed"
                                             type="button"
@@ -131,16 +120,21 @@
                     </div>
                     <div class="col-md-4 col-xxl-4 text-end d-none d-lg-block">
                         <div class="list-inline">
+                        <?php if(isset($_SESSION['email'])): ?>
+                            <!-- Show "My Account" when the user is logged in -->
                             <div class="list-inline-item">
-                                <a
-                                        href="#"
-                                        class="text-muted"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#userModal"
-                                >
-                                    <i class="fa fa-solid fa-cart-shopping me-2 nav-icon"></i>
+                                <a href="account-details.php" class="text-dark text-decoration-none">
+                                    <span>My Account</span>
                                 </a>
                             </div>
+                        <?php else: ?>
+                            <!-- Show "Sign In" when the user is not authorized -->
+                            <div class="list-inline-item">
+                                <a href="login.php" class="text-dark text-decoration-none">
+                                    <span>Sign In</span>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                             <div class="list-inline-item">
                                 <a
                                         class="position-relative"
@@ -176,13 +170,10 @@
                                 <a class="nav-link mx-3" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-3" href="classes.php">Timetable</a>
+                                <a class="nav-link mx-3" href="classes.php">Classes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-3" href="brands.php">Membership</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mx-3" href="#">About Us</a>
+                                <a class="nav-link mx-3" href="schedule.php">Timetable</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mx-3" href="blog.php">Blog</a>
@@ -195,13 +186,10 @@
                                 <a class="nav-link" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="classes.php">Timetable</a>
+                                <a class="nav-link" href="classes.php">Classes</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link" href="brands.php">Membership</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#">About Us</a>
+                                <a class="nav-link" href="schedule.php">Timetable</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="blog.php">Blog</a>

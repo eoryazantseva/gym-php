@@ -54,13 +54,13 @@ require "partials/header.php";
             <span class="fs-4 d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">My Account</span>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                            <a href="dashboard.php" class="nav-link active">
+                                <i class="fa-solid fa-gauge"></i> Dashboard
+                            </a>
+                    </li>
                 <?php if ($_SESSION['role'] == 'admin'): ?>
                     <!-- Admin-specific links -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-dark">
-                            <i class="fa-solid fa-gauge-high"></i> Admin Dashboard
-                        </a>
-                    </li>
                     <li>
                         <a href="upload_classes.php" class="nav-link  link-dark">
                             <i class="fa-solid fa-upload"></i> Upload Classes XML
@@ -73,11 +73,6 @@ require "partials/header.php";
                     </li>
                 <?php else: ?>
                     <!-- Links for regular users -->
-                    <li class="nav-item">
-                        <a href="dashboard.php" class="nav-link active">
-                            <i class="fa-solid fa-gauge"></i> Dashboard
-                        </a>
-                    </li>
                     <li>
                         <a href="class_bookings.php" class="nav-link link-dark">
                             <i class="fa-solid fa-calendar-check"></i> My Classes
