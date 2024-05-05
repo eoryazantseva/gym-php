@@ -1,15 +1,37 @@
 <?php
 session_start();
+include_once 'data/get_trainers.php'; // Ensure this file exists and contains a function to fetch trainer data
 include_once 'data/get_schedule.php';
-$classSchedules = getClassSchedules();
+
+// Fetch the trainer ID from the GET request if available
+$selectedTrainerId = isset($_GET['trainer_id']) ? (int)$_GET['trainer_id'] : null;
+
+// Fetch class schedules using the selected trainer ID
+$classSchedules = getClassSchedules($selectedTrainerId);
+
+// Fetch all trainers for the dropdown list
+$trainers = getTrainers();
+
 include "partials/header.php";
 ?>
 
 <main class="py-5">
     <div class="container">
         <h2 class="font-bold">Our Schedule</h2>
-        <?php
-        if (isset($_SESSION['message'])) {
+        <form method="get" class="mb-3">
+            <div class="mb-3">
+                <label for="trainer_id" class="form-label">Select a Trainer:</label>
+                <select name="trainer_id" id="trainer_id" class="form-control" onchange="this.form.submit()">
+                    <option value="">All Trainers</option>
+                    <?php foreach ($trainers as $trainer): ?>
+                        <option value="<?= $trainer['trainer_id']; ?>" <?= $selectedTrainerId == $trainer['trainer_id'] ? 'selected' : ''; ?>>
+                            <?= htmlspecialchars($trainer['name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </form>
+        <?php if (isset($_SESSION['message'])) {
             echo '<div class="alert alert-info">' . $_SESSION['message'] . '</div>';
             unset($_SESSION['message']);  // Clear the message after displaying it
         }

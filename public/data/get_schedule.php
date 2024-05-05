@@ -1,10 +1,9 @@
 <?php
 include_once "../config.php";
 
-function getClassSchedules() {
-    $conn = getConnection(); // Establish a connection using the function from config.php
-
-    $today = date("Y-m-d"); // Current date in 'Y-m-d' format
+function getClassSchedules($trainerId = null) {
+    $conn = getConnection(); 
+    $today = date("Y-m-d");
 
     $sql = "SELECT cs.schedule_id, cl.name as class_name, tr.name as trainer_name,
                    DATE_FORMAT(cs.date, '%W, %d %M %Y') as formatted_date, 
@@ -14,10 +13,17 @@ function getClassSchedules() {
             FROM class_schedule cs
             JOIN classes cl ON cs.class_id = cl.class_id
             JOIN trainers tr ON cs.trainer_id = tr.trainer_id
-            WHERE cs.date >= ? 
-            ORDER BY cs.date ASC, cs.start_time ASC";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $today);
+            WHERE cs.date >= ?";
+
+    if ($trainerId) {
+        $sql .= " AND cs.trainer_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $today, $trainerId);
+    } else {
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $today);
+    }
+
     $stmt->execute();
     $result = $stmt->get_result();
 
