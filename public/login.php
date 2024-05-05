@@ -69,5 +69,34 @@ if (isset($_POST['submit'])) {
     </div>
   </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var loginForm = document.querySelector('form');
+    loginForm.addEventListener('submit', function(event) {
+        var email = document.querySelector('[name="email"]').value;
+        var password = document.querySelector('[name="password"]').value;
+        var errorMsg = "";
+
+        // Simple email regex for basic validation
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+        // Check if email is valid
+        if (!emailRegex.test(email)) {
+            errorMsg += "Please enter a valid email address.\n";
+        }
+
+        // Check if email and password fields are not empty
+        if (email.trim() === "" || password.trim() === "") {
+            errorMsg += "Both email and password are required.\n";
+        }
+
+        // If there are errors, prevent the form from submitting and show the error messages
+        if (errorMsg !== "") {
+            event.preventDefault();  // Prevent form submission
+            alert(errorMsg);
+        }
+    });
+});
+</script>
 
 <?php require "partials/footer.php"; ?>

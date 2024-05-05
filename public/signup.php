@@ -24,6 +24,7 @@ if (isset($_POST['reg_user'])) {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['first_name'] = $user['first_name'];
                 $_SESSION['last_name'] = $user['last_name'];
+                $_SESSION['role'] = $user['role'] ?? 'customer';
                 $_SESSION['success'] = "You have logged in successfully";
                 
                 // Redirect to the dashboard
@@ -53,7 +54,7 @@ require "partials/header.php";
         </div>
     <?php endif; ?>
 
-    <form class="my-4 mb-sm-3" action="signup.php" method="post">
+    <form id="signupForm" class="my-4 mb-sm-3" action="signup.php" method="post">
         <div class="mb-3">
             <label for="first_name" class="form-label ms-1">First Name</label>
             <input type="text" class="form-control" id="first_name" name="first_name" required>
@@ -77,5 +78,46 @@ require "partials/header.php";
         <button type="submit" class="btn btn-primary text-uppercase" name="reg_user">Sign Up</button>
     </form>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#signupForm').submit(function(event) {
+        var isValid = true;
+        $('.error').remove();
+
+        $('#first_name, #last_name').each(function() {
+            var input = $(this).val().trim();
+            if (input.length < 2) {
+                $(this).after('<span class="error" style="color: red;">This field must contain at least 2 characters.</span>');
+                isValid = false;
+            }
+        });
+
+        var email = $('#email').val();
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(email)) {
+            $('#email').after('<span class="error" style="color: red;">Please enter a valid email address.</span>');
+            isValid = false;
+        }
+
+        var password = $('#password_1').val();
+        if (password.length < 8) {
+            $('#password_1').after('<span class="error" style="color: red;">Password must be at least 8 characters long.</span>');
+            isValid = false;
+        }
+
+        var confirmPassword = $('#password_2').val();
+        if (password !== confirmPassword) {
+            $('#password_2').after('<span class="error" style="color: red;">Passwords do not match.</span>');
+            isValid = false;
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+});
+</script>
+
 
 <?php require "partials/footer.php"; ?>

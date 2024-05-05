@@ -77,7 +77,7 @@ require "partials/header.php";
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link link-dark" aria-current="dashboard">
+                    <a href="dashboard.php" class="nav-link link-dark" aria-current="dashboard">
                         <i class="fa-solid fa-gauge"></i> Dashboard
                     </a>
                 </li>
@@ -91,11 +91,11 @@ require "partials/header.php";
                         <i class="fa-solid fa-circle-info"></i> Account details
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                    </a>
-                </li>
+                <?php if (isset($_SESSION['email'])) : ?>
+                    <li>
+                        <a href="?logout" class="nav-link link-dark"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
         <!-- Sidebar ends -->

@@ -91,9 +91,11 @@ require "partials/header.php";
                         </a>
                     </li>
                 <?php endif; ?>
-                <li>
-                    <a href="?logout" class="nav-link link-dark"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
-                </li>
+                <?php if (isset($_SESSION['email'])) : ?>
+                    <li>
+                        <a href="?logout" class="nav-link link-dark"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
