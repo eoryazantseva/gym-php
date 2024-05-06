@@ -1,14 +1,7 @@
 <?php
 session_start();
 
-// Redirect if not logged in
-if (!isset($_SESSION['email'])) {
-    $_SESSION['message'] = "You have to log in first";
-    header('location: login.php');
-    exit();
-}
-
-// Redirect if not an admin
+// Redirect if not logged in or not an admin
 if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
     $_SESSION['message'] = "Access denied: You must be an admin to access this page.";
     header('location: login.php');
@@ -25,6 +18,7 @@ if (isset($_GET['logout'])) {
 
 require "partials/header.php";
 ?>
+
 
 <div class="container mt-5">
     <div class="row">

@@ -22,7 +22,7 @@ require "partials/header.php";
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8 col-sm-12 order-md-last">
-            <?php include('partials/message.php'); ?>
+        <?php include('partials/message.php'); ?>
             <script>
                 function updateFileName() {
                     var fileInput = document.getElementById('file');
@@ -55,12 +55,11 @@ require "partials/header.php";
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                            <a href="dashboard.php" class="nav-link active">
+                            <a href="dashboard.php" class="nav-link">
                                 <i class="fa-solid fa-gauge"></i> Dashboard
                             </a>
                     </li>
                 <?php if ($_SESSION['role'] == 'admin'): ?>
-                    <!-- Admin-specific links -->
                     <li>
                         <a href="upload_classes.php" class="nav-link  link-dark">
                             <i class="fa-solid fa-upload"></i> Upload Classes XML
@@ -72,7 +71,6 @@ require "partials/header.php";
                         </a>
                     </li>
                 <?php else: ?>
-                    <!-- Links for regular users -->
                     <li>
                         <a href="class_bookings.php" class="nav-link link-dark">
                             <i class="fa-solid fa-calendar-check"></i> My Classes
@@ -84,11 +82,9 @@ require "partials/header.php";
                         </a>
                     </li>
                 <?php endif; ?>
-                <?php if (isset($_SESSION['email'])) : ?>
-                    <li>
-                        <a href="?logout" class="nav-link link-dark"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
-                    </li>
-                <?php endif; ?>
+                <li>
+                    <a href="?logout" class="nav-link link-dark"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+                </li>
             </ul>
         </div>
     </div>
