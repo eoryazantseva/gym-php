@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../../config.php"; // Ensure the path is correctly referenced
+include_once "../../config.php";
 
 if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
     $_SESSION['message'] = "Access denied: You must be an admin to access this page.";
