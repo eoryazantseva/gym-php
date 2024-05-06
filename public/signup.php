@@ -11,7 +11,12 @@ if (isset($_POST['reg_user'])) {
     $password_1 = $_POST['password_1'];
     $password_2 = $_POST['password_2'];
 
-    if ($password_1 == $password_2) {
+    // Server-side password complexity check
+    if (!preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/', $password_1)) {
+        $errors[] = "Password must be at least 8 characters long and include at least one number, one uppercase and one lowercase letter.";
+    }
+
+    if ($password_1 == $password_2 && empty($errors)) {
         $result = registerUser($first_name, $last_name, $email, $password_1);
         if ($result['success']) {
             // Fetch newly created user details
@@ -25,20 +30,19 @@ if (isset($_POST['reg_user'])) {
                 $_SESSION['first_name'] = $user['first_name'];
                 $_SESSION['last_name'] = $user['last_name'];
                 $_SESSION['role'] = $user['role'] ?? 'customer';
-                $_SESSION['success'] = "You have logged in successfully";
-                
-                // Redirect to the dashboard
+                $_SESSION['success'] = "You have logged in successfully";                
+                // Redirect to the account dashboard
                 header('location: dashboard.php');
                 exit();
             }
             mysqli_close($conn);
+            } else {
+                $errors = $result['errors'];
+            }
         } else {
-            $errors = $result['errors'];
+            $errors[] = "The two passwords do not match";
         }
-    } else {
-        $errors[] = "The two passwords do not match";
     }
-}
 
 require "partials/header.php";
 ?>
@@ -101,8 +105,8 @@ $(document).ready(function() {
         }
 
         var password = $('#password_1').val();
-        if (password.length < 8) {
-            $('#password_1').after('<span class="error" style="color: red;">Password must be at least 8 characters long.</span>');
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password)) {
+            $('#password_1').after('<span class="error" style="color: red;">Password must include at least one number, one uppercase and one lowercase letter.</span>');
             isValid = false;
         }
 
