@@ -34,7 +34,7 @@
 <body>
 <div class="container-lg">
     <!-- Navigation Bar 1 -->
-    <div class="border-bottom" mb-5>
+    <div class="border-bottom">
         <nav class="navbar py-lg-2 pt-3 px-0 pb-0">
             <div class="container">
                 <!-- Navigation bar container -->
@@ -47,7 +47,7 @@
                                     src="images/logo.png"
                                     alt="High Street Gym Logo"
                                     width="150"
-                            />
+                            >
                         </a>
                         <!-- Logo with link for small screens -->
                         <div class="d-flex justify-content-between w-100 d-lg-none">
@@ -57,7 +57,7 @@
                                         class="ms-3"
                                         alt="High Street Gym Logo"
                                         width="150"
-                                />
+                                >
                             </a>
 
                             <div class="d-flex align-items-center lh-1">
