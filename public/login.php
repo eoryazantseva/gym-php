@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
           </div>
       <?php } ?>
 
-      <form action="" method="POST">
+      <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
           <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
