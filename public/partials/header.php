@@ -22,8 +22,8 @@
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
+    >
+    <link rel="stylesheet" href="css/styles.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
