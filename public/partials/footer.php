@@ -31,7 +31,6 @@
     </div>
                     </div>
             </div>
-            <br>
             <small class="text-center">Copyright 2024 © High Street Gym</small>
         </footer>
     </div>
