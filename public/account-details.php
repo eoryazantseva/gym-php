@@ -16,7 +16,7 @@ if (isset($_POST['update_details'])) {
     $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
     $phone = mysqli_real_escape_string($conn, $_POST['cust_phone']);
-    $email_changed = mysqli_real_escape_string($conn, $_POST['cust_email']);
+    $email_changed = mysqli_real_escape_string($conn, $_POST['email']);
 
     $query = "UPDATE users SET first_name='$first_name', last_name='$last_name', phone='$phone', email='$email_changed' WHERE email='{$_SESSION['email']}'";
     if (mysqli_query($conn, $query)) {
@@ -44,7 +44,7 @@ require "partials/header.php";
             if ($user = mysqli_fetch_assoc($result)) {
             ?>
 
-            <form class="my-4 mb-sm-3" action="account-details.php" method="post">
+            <form class="my-4 mb-sm-3" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                 <div class="form-group mb-3">
                     <label for="first_name" class="form-label">First Name:</label>
                     <input type="text" class="form-control" name="first_name" value="<?= htmlspecialchars($user['first_name']); ?>">
@@ -58,8 +58,8 @@ require "partials/header.php";
                     <input type="text" class="form-control" name="cust_phone" value="<?= htmlspecialchars($user['phone']); ?>">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="cust_email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" name="cust_email" value="<?= htmlspecialchars($user['email']); ?>">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($user['email']); ?>">
                 </div>
                 <button type="submit" class="btn btn-primary text-uppercase" name="update_details">Update Details</button>
                 <a href="index.php" class="btn btn-primary text-uppercase">Cancel</a>
