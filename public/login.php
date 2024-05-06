@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 
 <?php require "partials/header.php"; ?>
 
-<div class="container my-5 pb-5">
+<div class="container my-5 mb-5">
   <h2 class="row my-4 mx-0 text-uppercase font-bold">Gym Member Login</h2>
   <div class="row">
     <div class="col-md-6">

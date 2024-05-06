@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS only -->
   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -34,7 +34,7 @@
 <body>
 <div class="container-lg">
     <!-- Navigation Bar 1 -->
-    <div class="border-bottom" pb-5>
+    <div class="border-bottom" mb-5>
         <nav class="navbar py-lg-2 pt-3 px-0 pb-0">
             <div class="container">
                 <!-- Navigation bar container -->
@@ -45,9 +45,8 @@
                         <a class="navbar-brand d-none d-lg-block" href="index.php">
                             <img
                                     src="images/logo.png"
-                                    alt="logo"
+                                    alt="High Street Gym Logo"
                                     width="150"
-                                    id="logo"
                             />
                         </a>
                         <!-- Logo with link for small screens -->
@@ -56,9 +55,8 @@
                                 <img
                                         src="images/logo.png"
                                         class="ms-3"
-                                        alt="logo"
+                                        alt="High Street Gym Logo"
                                         width="150"
-                                        id="logo"
                                 />
                             </a>
 
@@ -109,7 +107,7 @@
                                         placeholder="Search for classes..."
                                         aria-label="Search for classes"
                                         aria-describedby="basic-addon2"
-                                />
+                                >
                                 <span
                                         class="input-group-text bg-transparent"
                                         id="basic-addon2"
@@ -162,7 +160,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-2 d-block d-lg-none">
                         <div>
                             <a class="navbar-brand" href="index.php">
-                                <img src="images/logo.png" width="100">
+                                <img src="images/logo.png" width="100" alt="High Street Gym Logo">
                             </a>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

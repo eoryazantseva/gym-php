@@ -47,7 +47,7 @@ if (isset($_POST['reg_user'])) {
 require "partials/header.php";
 ?>
 
-<div class="container my-5 pb-5">
+<div class="container my-5 mb-5">
     <h2 class="my-4 mx-0 text-uppercase font-bold">Create new member account</h2>
 
     <?php if (count($errors) > 0): ?>

@@ -1,6 +1,6 @@
         <footer class="row py-4 w-100 mx-auto">
             <div class="d-none d-lg-block col-lg-3 text-center">
-                <img src="images/logo.png" width="200" alt="logo">
+                <img src="images/logo.png" width="200" alt="High Street Gym Logo">
             </div>
             <div class="col-12 col-md-12 col-lg-4 text-center">
                 <p class="footer-title">
