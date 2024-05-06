@@ -13,13 +13,11 @@ include "partials/header.php";
             <div class="text-center mb-2">
                 <small>POSTED ON <?= date('F j, Y', strtotime($post['created_at'])) ?> BY <?= htmlspecialchars($post['author_name']) ?></small>
             </div>
-            <img class="img-fluid" src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" max-width: 80%; >
-
+            <img class="img-fluid" src="<?= htmlspecialchars($post['post_image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
             <?php 
             $lines = explode("\n", htmlspecialchars($post['content']));  // Split content into lines
             $preview = implode("\n", array_slice($lines, 0, 2));  // Join the first two lines
             ?>
-
             <p class="mb-3 mt-3"><?= nl2br($preview) ?>...</p>
             <div class="text-center">
                 <a href="post.php?post_id=<?= $post['post_id'] ?>" class="btn btn-secondary mt-2">CONTINUE READING →</a>
