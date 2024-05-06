@@ -40,7 +40,7 @@ $(document).ready(function() {
         });
     }
 
-    // Initial load
+    // Initial load to fetch schedules for all trainers
     fetchSchedule();
 
     // Handle change event on dropdown
