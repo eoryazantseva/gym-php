@@ -37,34 +37,32 @@ require "partials/header.php";
     <div class="row">
         <div class="col-md-8 col-sm-12 order-md-last">
             <?php include('partials/message.php'); ?>
-
+            
             <?php
             $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
             $result = mysqli_query($conn, $query);
             if ($user = mysqli_fetch_assoc($result)) {
             ?>
-
             <form class="my-4 mb-sm-3" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                 <div class="form-group mb-3">
                     <label for="first_name" class="form-label">First Name:</label>
-                    <input type="text" class="form-control" name="first_name" value="<?= htmlspecialchars($user['first_name']); ?>">
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?= htmlspecialchars($user['first_name']); ?>">
                 </div>
                 <div class="form-group mb-3">
                     <label for="last_name" class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" name="last_name" value="<?= htmlspecialchars($user['last_name']); ?>">
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?= htmlspecialchars($user['last_name']); ?>">
                 </div>
                 <div class="form-group mb-3">
                     <label for="cust_phone" class="form-label">Phone:</label>
-                    <input type="text" class="form-control" name="cust_phone" value="<?= htmlspecialchars($user['phone']); ?>">
+                    <input type="text" class="form-control" id="cust_phone" name="cust_phone" value="<?= htmlspecialchars($user['phone']); ?>">
                 </div>
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($user['email']); ?>">
+                    <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']); ?>">
                 </div>
                 <button type="submit" class="btn btn-primary text-uppercase" name="update_details">Update Details</button>
                 <a href="index.php" class="btn btn-primary text-uppercase">Cancel</a>
             </form>
-
             <?php
             } else {
                 echo "<p>User details not found.</p>";
