@@ -52,11 +52,11 @@ if (isset($_POST['submit'])) {
       <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
+            <input id="email" type="email" class="form-control" name="email" placeholder="Enter Email" required>
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+            <input id="password" type="password" class="form-control" name="password" placeholder="Enter Password" required>
           </div>
           <button type="submit" name="submit" class="btn btn-primary">Login</button>
       </form>
