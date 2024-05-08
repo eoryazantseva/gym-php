@@ -109,7 +109,7 @@
                         <?php if(isset($_SESSION['email'])): ?>
                             <!-- Show "My Account" when the user is logged in -->
                             <div class="list-inline-item">
-                                <a href="account-details.php" class="text-dark text-decoration-none">
+                                <a href="dashboard.php" class="text-dark text-decoration-none">
                                     <span>My Account</span>
                                 </a>
                             </div>

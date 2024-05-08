@@ -8,6 +8,7 @@ include "partials/header.php";
 <main class="py-5">
     <div class="container">
         <h2 class="font-bold">Our Schedule</h2>
+        <?php include('partials/message.php'); ?>
         <div class="mb-3">
             <label for="trainer_select" class="form-label">Select a Trainer:</label>
             <select id="trainer_select" class="form-control">

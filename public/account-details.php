@@ -37,7 +37,7 @@ require "partials/header.php";
     <div class="row">
         <div class="col-md-8 col-sm-12 order-md-last">
             <?php include('partials/message.php'); ?>
-            
+
             <?php
             $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
             $result = mysqli_query($conn, $query);

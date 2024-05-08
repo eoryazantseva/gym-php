@@ -23,9 +23,11 @@ foreach ($schedules as $schedule) {
                     <th>Trainer</th>
                     <th>Time</th>
                     <th>Level</th>
-                    <th class="class-capacity">Spots Available</th>
-                    <th>Action</th>
-                </tr></thead><tbody>';
+                    <th class="class-capacity">Spots Available</th>';
+        if (isset($_SESSION['email'])) {
+            $output .= '<th>Action</th>'; // Add Action column header only if user is logged in
+        }
+        $output .= '</tr></thead><tbody>';
     }
 
     $output .= '<tr class="text-center">';
@@ -34,13 +36,15 @@ foreach ($schedules as $schedule) {
     $output .= '<td>' . htmlspecialchars($schedule['start_time']) . ' - ' . htmlspecialchars($schedule['end_time']) . '</td>';
     $output .= '<td>' . htmlspecialchars($schedule['level']) . '</td>';
     $output .= '<td class="class-capacity">' . htmlspecialchars($schedule['capacity']) . '</td>';
-    $output .= '<td>';
-    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-        $output .= '<a href="data/delete_class.php?schedule_id=' . $schedule['schedule_id'] . '" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this class?\');">Delete</a>';
-    } else if (isset($_SESSION['email'])) {
-        $output .= '<a href="book_class.php?schedule_id=' . $schedule['schedule_id'] . '" class="btn btn-primary">Book Now</a>';
+    if (isset($_SESSION['email'])) {
+        $output .= '<td>';
+        if ($_SESSION['role'] === 'admin') {
+            $output .= '<a href="data/delete_class.php?schedule_id=' . $schedule['schedule_id'] . '" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this class?\');">Delete</a>';
+        } else {
+            $output .= '<a href="book_class.php?schedule_id=' . $schedule['schedule_id'] . '" class="btn btn-primary">Book</a>';
+        }
+        $output .= '</td>';
     }
-    $output .= '</td>';
     $output .= '</tr>';
 }
 
