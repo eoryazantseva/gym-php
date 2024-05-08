@@ -261,3 +261,8 @@
   max-width: 100%;
   height: auto; /* Ensure the image scales correctly */
 }
+@media (max-width: 767px) {
+  .class-capacity {
+      display: none;
+  }
+}

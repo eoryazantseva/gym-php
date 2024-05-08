@@ -68,21 +68,6 @@
                                             <i class="fa fa-solid fa-user me-3 nav-icon"></i>
                                         </a>
                                     </div>
-                                <?php if(isset($_SESSION['email'])): ?>
-                                    <!-- Show "My Account" when the user is logged in -->
-                                    <div class="list-inline-item">
-                                        <a href="account-details.php" class="text-dark text-decoration-none">
-                                            <span>My Account</span>
-                                        </a>
-                                    </div>
-                                <?php else: ?>
-                                    <!-- Show "Sign In" when the user is not authorized -->
-                                    <div class="list-inline-item">
-                                        <a href="login.php" class="text-dark text-decoration-none">
-                                            <span>Sign In</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
                                     <button
                                             class="navbar-toggler collapsed"
                                             type="button"
