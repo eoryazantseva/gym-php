@@ -73,9 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
 }
 
 function validateXMLStructureForClasses($xml) {
-    // Ensure there is at least one Class element and it has the required children
-    return isset($xml->Class) && count($xml->Class) > 0 && array_reduce($xml->Class, function ($valid, $class) {
-        return $valid && isset($class->Name, $class->Description);
-    }, true);
+    if (!isset($xml->Class) || $xml->Class->count() == 0) {
+        return false;
+    }
+    foreach ($xml->Class as $class) {
+        if (!isset($class->Name) || !isset($class->Description)) {
+            return false;
+        }
+    }
+    return true;
 }
+
 ?>

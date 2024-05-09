@@ -26,7 +26,7 @@ function getPost($conn, $post_id) {
 }
 
 function getComments($conn, $post_id) {
-    $sql = "SELECT c.comment, CONCAT(u.first_name, ' ', u.last_name) AS username, c.created_at 
+    $sql = "SELECT c.comment, CONCAT(u.first_name, ' ', u.last_name) AS username, u.role, c.created_at 
             FROM comments c 
             JOIN users u ON c.user_id = u.user_id 
             WHERE c.post_id = ? 

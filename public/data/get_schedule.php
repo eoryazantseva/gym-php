@@ -14,7 +14,7 @@ function getClassSchedules($trainerId = null) {
             JOIN trainers tr ON cs.trainer_id = tr.trainer_id
             WHERE cs.date >= CURDATE()";
 
-    $params = []; // Initialize the params array
+    $params = []; 
     $types = '';  // Initialize types as an empty string
 
     // Only add trainer ID condition if a specific trainer is selected

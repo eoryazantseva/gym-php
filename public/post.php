@@ -13,6 +13,7 @@ if (!$post) {
 
 $comments = getComments($conn, $post_id);
 
+
 if (isset($_POST['submit_comment'])) {
     if (isset($_SESSION['user_id'])) {
         $comment = mysqli_real_escape_string($conn, $_POST['comment']);
@@ -22,6 +23,7 @@ if (isset($_POST['submit_comment'])) {
         header("Location: post.php?post_id=$post_id");
         exit();
     } else {
+        $_SESSION['message'] = "You must be logged in to comment.";
         $error = "You must be logged in to comment.";
     }
 }
@@ -43,7 +45,12 @@ require "partials/header.php";
             <?php foreach ($comments as $comment): ?>
                 <div class="comment mb-3">
                     <p><?= htmlspecialchars($comment['comment']) ?></p>
-                    <small class="text-muted">Commented by <?= htmlspecialchars($comment['username']) ?> on <?= date('F j, Y, g:i a', strtotime($comment['created_at'])) ?></small>
+                    <small class="text-muted">Commented by <?= htmlspecialchars($comment['username']) ?>
+                        <?php if ($comment['role'] === 'admin'): ?>
+                            <span class="text-danger">Admin</span>
+                        <?php endif; ?>
+                        on <?= date('F j, Y, g:i a', strtotime($comment['created_at'])) ?>
+                    </small>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
@@ -59,7 +66,7 @@ require "partials/header.php";
                 <button type="submit" name="submit_comment" class="btn btn-primary mb-5">Add Comment</button>
             </form>
         <?php else: ?>
-            <p>You must be logged in to add comments.</p>
+            <p class="text-danger">You must be logged in to add comments.</p>
         <?php endif; ?>
     </section>
 </main>
