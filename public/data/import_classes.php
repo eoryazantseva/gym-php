@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../../config.php";
+include_once "../../config.php"; // Ensure this path is correctly pointed to your configuration file
 
 if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
     $_SESSION['message'] = "Access denied: You must be an admin to access this page.";
@@ -11,17 +11,9 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
     $file = $_FILES['file'];
 
-    // File error checking
-    if ($file['type'] != 'text/xml' && $file['type'] != 'application/xml') {
-        $_SESSION['message'] = "Invalid file type. Only XML files are allowed.";
-        header("Location: ../upload_schedule.php");
-        exit();
-    }
-
-    // Validate the MIME type of the file
-    $fileType = mime_content_type($file['tmp_name']);
-    if ($fileType != 'text/xml' && $fileType != 'application/xml') {
-        $_SESSION['message'] = "Invalid file type. Please upload a valid XML file.";
+    // File error and type checking
+    if ($file['error'] !== UPLOAD_ERR_OK || ($file['type'] != 'text/xml' && $file['type'] != 'application/xml')) {
+        $_SESSION['message'] = "Invalid file type or upload error. Only XML files are allowed.";
         header("Location: ../upload_classes.php");
         exit();
     }
@@ -35,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
     }
 
     $conn = getConnection();
-    mysqli_begin_transaction($conn);
+    mysqli_begin_transaction($conn); // Start transaction
     $all_queries_successful = true;
 
     foreach ($xml->Class as $class) {
@@ -44,9 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
             break;
         }
 
+        $name = trim($class->Name);
+        $description = trim($class->Description);
+
         $sql = "INSERT INTO classes (name, description) VALUES (?, ?)";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ss", $class->Name, $class->Description);
+        mysqli_stmt_bind_param($stmt, "ss", $name, $description);
         if (!mysqli_stmt_execute($stmt)) {
             $all_queries_successful = false;
             mysqli_stmt_close($stmt);
@@ -56,15 +51,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
     }
 
     if ($all_queries_successful) {
-        mysqli_commit($conn);
+        mysqli_commit($conn); // Commit transaction if everything went well
         $_SESSION['message'] = "Classes imported successfully.";
+        header("Location: ../dashboard.php");
     } else {
-        mysqli_rollback($conn);
+        mysqli_rollback($conn); // Rollback transaction on error
         $_SESSION['message'] = "Failed to import some or all classes.";
+        header("Location: ../upload_classes.php");
     }
     
     mysqli_close($conn);
-    header("Location: ../dashboard.php");
     exit();
 } else {
     $_SESSION['message'] = "No file uploaded or incorrect method.";
@@ -83,5 +79,4 @@ function validateXMLStructureForClasses($xml) {
     }
     return true;
 }
-
 ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../../config.php"; // Adjust the path as needed
+include_once "../../config.php"; // Ensure this path is correct
 
 if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
     $_SESSION['message'] = "Access denied: You must be an admin to access this page.";
@@ -32,45 +32,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
 
         $conn = getConnection();
         $errors = [];
-        foreach ($xml->Schedule as $schedule) {
-            if (!isset($schedule->ClassId, $schedule->TrainerId, $schedule->Date, $schedule->StartTime, $schedule->EndTime, $schedule->Level, $schedule->Capacity)) {
-                $errors[] = "Missing required schedule elements.";
-                continue;
-            }
+        mysqli_begin_transaction($conn); // Start transaction
 
+        foreach ($xml->Schedule as $schedule) {
             $class_id = (int) $schedule->ClassId;
             $trainer_id = (int) $schedule->TrainerId;
-
-            // Validate existence of IDs
-            if (!checkIdExists($conn, 'classes', 'class_id', $class_id) || !checkIdExists($conn, 'trainers', 'trainer_id', $trainer_id)) {
-                $errors[] = "Class ID $class_id or Trainer ID $trainer_id does not exist.";
-                continue;
-            }
-
             $date = $schedule->Date;
             $start_time = $schedule->StartTime;
             $end_time = $schedule->EndTime;
             $level = $schedule->Level;
             $capacity = (int) $schedule->Capacity;
 
+            // Validate existence of IDs and date/time formats
+            if (!checkIdExists($conn, 'classes', 'class_id', $class_id) || !checkIdExists($conn, 'trainers', 'trainer_id', $trainer_id) || !validateDateTime($date, $start_time, $end_time)) {
+                $errors[] = "Invalid input: Class ID $class_id, Trainer ID $trainer_id, or date/time format.";
+                continue;
+            }
+
             $sql = "INSERT INTO class_schedule (class_id, trainer_id, date, start_time, end_time, level, capacity) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "iissssi", $class_id, $trainer_id, $date, $start_time, $end_time, $level, $capacity);
             if (!mysqli_stmt_execute($stmt)) {
-                $errors[] = "Failed to insert schedule for class ID $class_id.";
+                $errors[] = "Failed to insert schedule for Class ID $class_id.";
             }
             mysqli_stmt_close($stmt);
         }
-        mysqli_close($conn);
 
-        if (!empty($errors)) {
-            $_SESSION['message'] = "Errors occurred: \n" . implode("\n", $errors);
-            header("Location: ../upload_schedule.php");
-        } else {
+        if (count($errors) == 0) {
+            mysqli_commit($conn); // Commit transaction if no errors
             $_SESSION['message'] = "Schedules imported successfully.";
             header("Location: ../dashboard.php");
+        } else {
+            mysqli_rollback($conn); // Rollback transaction on errors
+            $_SESSION['message'] = "Errors occurred: \n" . implode("\n", $errors);
+            header("Location: ../upload_schedule.php");
         }
+
+        mysqli_close($conn);
     } else {
         $_SESSION['message'] = "Error uploading file.";
         header("Location: ../upload_schedule.php");
@@ -79,11 +78,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
 }
 
 function validateXMLStructure($xml) {
-    // Check for the presence of main elements
-    return isset($xml->Schedule) && isset($xml->Schedule->ClassId) && isset($xml->Schedule->TrainerId);
+    // Check each Schedule for required elements
+    foreach ($xml->Schedule as $schedule) {
+        if (!isset($schedule->ClassId, $schedule->TrainerId, $schedule->Date, $schedule->StartTime, $schedule->EndTime, $schedule->Level, $schedule->Capacity)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validateDateTime($date, $start, $end) {
+    // Validate date and time formats
+    return preg_match('/\d{4}-\d{2}-\d{2}/', $date) && preg_match('/\d{2}:\d{2}/', $start) && preg_match('/\d{2}:\d{2}/', $end);
 }
 
 function checkIdExists($conn, $table, $column, $id) {
+    // Check if an ID exists in a specific table and column
     $sql = "SELECT COUNT(*) FROM $table WHERE $column = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "i", $id);
